@@ -11,7 +11,7 @@ class Monitore
 
     public void critical_enter(int id)
     {
-        if(!critical.lock())
+        if(!critical.try_lock()) // if didn't locked, someone is already there, enqueue
         {
             Thread thread = Thread.currentThread();
             waiting.add(thread);
@@ -24,10 +24,10 @@ class Monitore
         Thread t = waiting.popIfNotEmpty(); 
         if(t == null)
         {
-            critical.unlock();
+            critical.unlock(); // current thread is guaranteed THE only thread who can unlock it.
         }else
         {
-            t.interrupted();
+            t.interrupted(); // unlock the poped thread
         }
     }
 }

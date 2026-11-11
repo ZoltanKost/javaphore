@@ -16,10 +16,7 @@ public class ConcurrentList<T>
 
     public void add(T element)
     {
-        while(!s.lock())
-        {
-            Thread.yield();
-        }
+        s.lock();
         ListNode<T> node = new ListNode<T>(element);
         ListNode<T> prev = tail.getPrev();
         prev.setNext(node);
@@ -53,10 +50,7 @@ public class ConcurrentList<T>
     }
     public T get(int id)
     {
-        while(!s.lock())
-        {
-            Thread.yield();
-        }
+        s.lock();
         if(id >= count) 
         {
             s.unlock();
@@ -75,10 +69,7 @@ public class ConcurrentList<T>
 
     public T popIfNotEmpty()
     {
-        while(!s.lock())
-        {
-            Thread.yield();
-        }
+        s.lock();
         T result;
         if(count > 0)
         {
