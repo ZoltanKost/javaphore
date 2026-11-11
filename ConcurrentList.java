@@ -37,7 +37,6 @@ public class ConcurrentList<T>
     {
         if (index >= count)
         {
-            s.unlock();
             return null;
         }
         ListNode<T> current = head.getNext();
