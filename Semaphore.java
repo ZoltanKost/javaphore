@@ -13,16 +13,13 @@ public class Semaphore
     {
         while(!locked.compareAndSet(false,true))
         {
-            //System.out.println("Semaphore is locked!");
             return false;
         }
-        //.out.println("Semaphore successfully locked!");
         return true;
     }
 
     public void unlock()
     {
         locked.set(false);
-        //System.out.println("Semaphore is unlocked!");
     }
 }
